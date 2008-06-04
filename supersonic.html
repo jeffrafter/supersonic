@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>sonic</title>
+</head>
+<body bgcolor="#ffffff">
+    <script type="text/javascript" src="supersonic.js"></script> 
+    <script type="text/javascript">
+      var sample = new FlashTag("sonic.swf", 1, 1, "7,0,14,0");
+      sample.write(document);
+    </script>
+    <style type="text/css">
+      body { font-family:helvetica,verdana,sans-serif; padding:10px; }
+      p, li { width:600px }
+      #footer { border-top:1px solid silver; padding:10px; }    
+    </style>
+    <form>
+      <h1>Supersonic</h1>
+      <p>Supersonic was written as part of the RailsRumble 2007 contest by the 
+      folks at Giant Robot Torso Mode. The team specifically included Jeff Rafter,
+      Nathan Horne, Rein Henrichs and David Aguilo. This code was whipped
+      together pretty quick to provide some AJAX based sound for our entry, but
+      we figured others may find it useful.</p>
+      <h2>Songs and Sounds</h2>
+      <p>Songs and sounds are intended to play longer and auto-repeat. This 
+      set of commands is intended for backdrop music and continuous ambient 
+      noise. If you are looking for a single play, use the effects instead.<p>
+      <input type="button" value="Play" onClick="javascript:PlayFlashSound('samples/song1.mp3');" />
+      <input type="button" value="Stop" onClick="javascript:StopFlashSound();" />
+      <input type="button" value="Fade" onClick="javascript:CrossfadeFlashSound('samples/song1.mp3');" />
+      <br/>
+      <ul>
+        <li><strong>Play</strong> [PlayFlashSound(url)]: Allows you to start playing a song or sound.</li>
+        <li><strong>Stop</strong> [StopFlashSound()]: Stops the currently playing song or sound.</li>
+        <li><strong>Play</strong>  [CrossfadeFlashSound(url)]: Crossfades from one song or sound to another. If no sound is currently playing it will fade the song in.</li>
+      </ul>
+      <h2>Effects</h2>
+      <p>Effects do not auto repeat and are useful for clicks, and feedback noises. 
+      If you are using the crossfading commands then these sounds overlap one another nicely.
+      Effects can be played over already playing sounds and songs.<p>
+      <input type="button" value="Effect" onClick="javascript:PlayFlashEffect('samples/effect1.mp3');" />
+      <input type="button" value="Stop" onClick="javascript:StopFlashEffect();" />
+      <input type="button" value="Fade" onClick="javascript:CrossfadeFlashEffect('samples/effect1.mp3');" />
+      <ul>
+        <li><strong>Play</strong> [PlayFlashEffect(url)]: Allows you to start playing a effect.</li>
+        <li><strong>Stop</strong> [StopFlashEffect()]: Stops the currently playing effect.</li>
+        <li><strong>Play</strong>  [CrossfadeFlashEffect(url)]: Crossfades from one effect to another. If no effect is currently playing it will fade the effect in.</li>
+      </ul>
+    </form>  
+    <div id="footer">
+      Songs and effects &copy; 2007 Giant Robot Torso Mode.
+    </div>
+    </body>
+</html>
