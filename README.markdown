@@ -15,3 +15,8 @@ This is supersonic.
 Script stri<script>pper
 
 Script stri<script></script>pper
+
+<scr
+ipt>
+
+`script`
