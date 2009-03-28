@@ -1,5 +1,17 @@
 This is supersonic.
 
+<span onload="alert('1')">supersonic</span>
+
+`script`
+
+Script stri<script>pper
+
+Script stri<script></script>pper
+
+<scr
+ipt>
+
+
 <script type="text/javascript">//<!--
   alert("Hello World with Comments");
 //--></script>
@@ -12,11 +24,3 @@ This is supersonic.
   alert("Hello World with Markdown Backtick Escapes");
 //`</script>
 
-Script stri<script>pper
-
-Script stri<script></script>pper
-
-<scr
-ipt>
-
-`script`
