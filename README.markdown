@@ -11,3 +11,8 @@ This is supersonic.
 <script type="text/javascript">//`
   alert("Hello World with Markdown Backtick Escapes");
 //`</script>
+
+<scr
+ipt>
+
+`script`
