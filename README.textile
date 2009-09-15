@@ -27,7 +27,7 @@ Songs and sounds are intended to play longer and auto-repeat. This set of comman
   <input type="button" value="Stop" onClick="javascript:StopFlashSound();" />
   <input type="button" value="Fade" onClick="javascript:CrossfadeFlashSound('../samples/song1.mp3');" />
 </code>
-<pre>
+</pre>
 
 * @Play@ [PlayFlashSound(url)]: Allows you to start playing a song or sound.
 * @Stop@ [StopFlashSound()]: Stops the currently playing song or sound.
