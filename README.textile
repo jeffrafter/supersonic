@@ -1,0 +1,102 @@
+h1. Supersonic
+
+Flash based audio controlled by fancy JavaScript.
+
+h2. History
+
+Supersonic was written as part of the "RailsRumble":http://railsrumble.com 2007 contest by the folks at Giant Robot Torso Mode. The team specifically included Jeff Rafter, Nathan Horne, Rein Henrichs and David Aguilo. This code was whipped together pretty quick to provide some AJAX based sound for our entry, but we figured others may find it useful.
+
+h2. Installation
+
+Supersonic is a JavaScript and Flash engine. Clone or download the repository and copy @supersonic.swf@ and @supersonic.js@ into your applications public folder (probably into the @/javascripts@ folder if you have one).
+
+h2. Requirements
+
+Supersonic requires that the client have a compatible Flash 7 plugin which should have 95% availability (though, notably, the iPhone does not support Flash). The client must also have JavaScript enabled.
+
+
+h2. Songs and Sounds
+
+*Please note, this API is currently being revised*
+
+Songs and sounds are intended to play longer and auto-repeat. This set of commands is intended for backdrop music and continuous ambient noise. If you are looking for a single play, use the effects instead.
+
+<pre>
+<code>
+  <input type="button" value="Play" onClick="javascript:PlayFlashSound('../samples/song1.mp3');" />
+  <input type="button" value="Stop" onClick="javascript:StopFlashSound();" />
+  <input type="button" value="Fade" onClick="javascript:CrossfadeFlashSound('../samples/song1.mp3');" />
+</code>
+<pre>
+
+* @Play@ [PlayFlashSound(url)]: Allows you to start playing a song or sound.
+* @Stop@ [StopFlashSound()]: Stops the currently playing song or sound.
+* @Crossfade@ [CrossfadeFlashSound(url)]: Crossfades from one song or sound to another. If no sound is currently playing it will fade the song in.
+
+Effects do not auto repeat and are useful for clicks, and feedback noises. If you are using the crossfading commands then these sounds overlap one another nicely. Effects can be played over already playing sounds and songs.
+
+<pre>
+<code>
+  <input type="button" value="Effect" onClick="javascript:PlayFlashEffect('../samples/effect1.mp3');" />
+  <input type="button" value="Stop" onClick="javascript:StopFlashEffect();" />
+  <input type="button" value="Fade" onClick="javascript:CrossfadeFlashEffect('../samples/effect1.mp3');" />
+</code>
+</pre>
+  
+* @Play@ [PlayFlashEffect(url)]: Allows you to start playing a effect.
+* @Stop@ [StopFlashEffect()]: Stops the currently playing effect.
+* @Crossfade@ [CrossfadeFlashEffect(url)]: Crossfades from one effect to another. If no effect is currently playing it will fade the effect in.
+
+h2. Working on Supersonic
+
+If you want to work on Supersonic you can build the @swf@ with the open source Flash compiler "mtasc":http://mtasc.org. On OSX you can download and unzip the binaries:
+
+<pre>
+wget http://mtasc.org/zip/mtasc-1.12-osx.zip
+unzip mtasc-1.12-osx.zip
+sudo ln -s /path/to/mtasc /usr/local/bin/mtasc
+</pre>
+
+To compile, go to the supersonic root folder and run @rake compile@.
+
+h2. Future
+
+Supersonic is currently usable and working, however a compatibility upgrade is underway, much of the API and structure will be changing.
+
+h2. Authors
+
+Jeff Rafter
+Nathan Horne
+David Aguilo
+Rein Henrichs
+
+Songs and effects &copy; 2007 David Aguilo, Giant Robot Torso Mode.
+
+Thanks to @bwy@ on Freenode @##swf@ channel.
+
+This product includes software developed by Macromedia, Inc. ("http://www.macromedia.com":http://www.macromedia.com). Please see source and license for details.
+
+h2. Suggestions, Bugs, Refactoring?
+
+Fork away and create a "Github Issue":http://github.com/jeffrafter/supersonic/issues. Please send pull requests.
+
+When you do: 
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Send me a pull request. Bonus points for topic branches.
+
+h2. References
+
+* http://www.unfitforprint.com/articles/2006/01/02/howto-develop-flash-on-mac-osx-with-rake-mtasc-swfmill-and-textmate
+* http://www.mtasc.org/zip/mtasc-1.12-osx.zip
+
+To extract the source from the original supersonic.swf we used (on OSX):
+
+<pre>
+sudo port install ming
+listswf_d sonic.swf
+</pre>
+
+* http://www.mail-archive.com/gnash-dev@gnu.org/msg05037.html
+* http://osdir.com/ml/compilers.mtasc/2005-07/msg00350.html
