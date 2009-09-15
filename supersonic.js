@@ -395,9 +395,9 @@ FlashSerializer.prototype._escapeXml = function(str)
  * Instantiates a new FlashProxy object. Pass in a uniqueID and the name (including the path)
  * of the Flash proxy SWF. The ID is the same ID that needs to be passed into your Flash content as lcId.
  */
-function FlashProxy(uid, proxySwfName)
+function FlashProxy(lcId, proxySwfName)
 {
-    this.uid = uid;
+    this.lcId = lcId;
     this.proxySwfName = proxySwfName;
     this.flashSerializer = new FlashSerializer(false);
 }
@@ -417,7 +417,7 @@ FlashProxy.prototype.call = function()
                             "The first argument should be the function name followed by any number of additional arguments.");
     }
 
-    var qs = 'lcId=' + escape(this.uid) + '&functionName=' + escape(arguments[0]);
+    var qs = 'proxy=1&lcId=' + escape(this.lcId) + '&functionName=' + escape(arguments[0]);
 
     if (arguments.length > 1)
     {
@@ -429,7 +429,7 @@ FlashProxy.prototype.call = function()
         qs += ('&' + this.flashSerializer.serialize(justArgs));
     }
 
-    var divName = '_flash_proxy_' + this.uid;
+    var divName = '_flash_proxy_' + this.lcId;
     if(!document.getElementById(divName))
     {
         var newTarget = document.createElement("div");
@@ -458,7 +458,7 @@ FlashProxy.callJS = function()
     functionToCall.apply(functionToCall, argArray);
 }
 
-var flashProxy = new FlashProxy(lcId, "JavaScriptFlashGateway.swf"); 
+var flashProxy = new FlashProxy(lcId, "../JavaScriptFlashGateway.swf"); 
 
 function PlayFlashSound(url) {
   flashProxy.call("playSound", url);
