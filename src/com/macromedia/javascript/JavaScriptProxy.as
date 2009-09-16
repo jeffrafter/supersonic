@@ -188,7 +188,7 @@ class com.macromedia.javascript.JavaScriptProxy
 		}
 		
 		//Created the javascript URL
-		var callString:String = "javascript:Supersonic.js(" + argsString + ");";
+		var callString:String = "javascript:js(" + argsString + ");";
 
 		//call out into the HTML / JavaScript environment
 		getURL(callString);

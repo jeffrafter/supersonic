@@ -11,22 +11,19 @@ var Supersonic = {
 };
 
 Supersonic = function() {
-  
-  // Initialize the audio 
-  
+    
   this.init = function(options) {
-    // Where is the source
-    this.movie = '../supersonic.swf';    
-
+    this.movie = '../supersonic.swf'; // TODO Where is the source 
+    
     // Proxy instance?
     if (options.lcId) {      
       this.lcId = options.lcId
       return;
     }
     this.lcId = new Date().getTime();
-    this.proxy = new Supersonic()
-    this.proxy.init({lcId:this.lcId});
-    document.write(this.build(''));
+    this.proxy = new Supersonic(); // TODO constructor versus init! fight!
+    this.proxy.init({lcId:this.lcId}); // TODO can't I just have one constructor?
+    document.write(this.build('lcId=' + escape(this.lcId))); // TODO (this sucks)
 
     this.src = options.src || null;
     this.autobuffer = options.autobuffer || true;
@@ -123,7 +120,7 @@ Supersonic = function() {
     var args = new Array();
     for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);
     var name = args.shift();
-    var query = 'proxy=1&lcId=' + escape(this.lcId) + '&functionName=' + escape(name);
+    var query = 'mode=proxy&lcId=' + escape(this.lcId) + '&functionName=' + escape(name);
     if (args.length > 0) query += ('&' + this.serialize(args));
     var id = '_flash_proxy_' + this.lcId;
     var target = document.getElementById(id);
@@ -136,7 +133,18 @@ Supersonic = function() {
   }  
   
   this.js = function() {
+    alert('js-in');
+    var args = new Array();
+    for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);
     var functionToCall = eval(arguments.shift());
     functionToCall.apply(functionToCall, arguments);
   }
+}
+
+function js() {
+  alert('js-out');
+  var args = new Array();
+  for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);
+  var functionToCall = eval(args.shift());
+  functionToCall(args);
 }

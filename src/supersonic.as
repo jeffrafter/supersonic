@@ -2,15 +2,15 @@ import com.macromedia.javascript.JavaScriptSerializer;
 import com.macromedia.javascript.JavaScriptProxy;
 
 class Supersonic {
-  static var proxy:com.macromedia.javascript.JavaScriptProxy; 
+  static var proxy:JavaScriptProxy; 
 
   function Supersonic() {
-    proxy = new com.macromedia.javascript.JavaScriptProxy(_root.lcId,this);  
+    proxy = new JavaScriptProxy(_root.lcId,this);  
 
-		// creates a 'tf' TextField size 800x600 at pos 0,0
-		_root.createTextField("tf",100,100,0,800,600);
-		// write some text into it
-		_root.tf.text = "Supersonic";
+    // creates a 'tf' TextField size 800x600 at pos 0,0
+    _root.createTextField("tf",0,0,0,800,600);
+    // write some text into it
+    _root.tf.text = "Hello";
 
     _root.onEnterFrame = function () {
       if( (_root.fadeout_sound==1) ) {
@@ -49,25 +49,69 @@ class Supersonic {
 
   // Entry point, check if we should act like a proxy call
   static function main(context) {
-    if (context.proxy == undefined) {
+    if (context.mode != "proxy") {
       var instance = new Supersonic();
     } else {
-      var instance = new JavaScriptProxy();
+      var sending_lc:LocalConnection;
+      if(_root.lcId != undefined)
+      {
+        sending_lc = new LocalConnection();
+        
+        //create the arguments array for the function call.
+        var argsArray:Array = parseVars();
+        
+        if(argsArray != undefined && argsArray.length > 0)
+        {
+          //call the proxy function in the JavaScriptProxy instance in the main app / content
+          sending_lc.send(_root.lcId, "callFlash", argsArray);
+        }
+        
+        //close the connection
+        sending_lc.close();
+      }
     }
   }
 
-  function playSound(itemURL /*=R2*/ ) {
-		// creates a 'tf' TextField size 800x600 at pos 0,0
-		_root.createTextField("tf",0,0,0,800,600);
-		// write some text into it
-		_root.tf.text = "Hello world !";
+  static function parseVars():Array {    
+    if(_root.functionName == undefined) {
+      trace("Warning : functionName not defined. Exiting.");
+      return undefined;
+    }
+    var outArray:Array = new Array();
+    
+    outArray.push(_root.functionName);
+    
+    var index:Number = 0;
+    
+    var type:String;
+    var data:String;
+    
+    while((type = _root["t" + index]) != undefined) {
+      data = _root["d" + index];
+      
+      //deserialize into native ActionScript types
+      outArray.push(JavaScriptSerializer.deserializeItem(type, data));
+      index++;
+    }
+    
+    return outArray;
+  }
 
 
+  function playSound(itemURL) {
     _root.fadeout_sound_volume = 100;
     _root.fadeout_sound = 0;
     _root.sound = new Sound();
     _root.sound.loadSound(itemURL,true);
     _root.sound.onSoundComplete = function () {
+
+      // creates a 'tf' TextField size 800x600 at pos 0,0
+      _root.createTextField("tf",0,0,0,800,600);
+      // write some text into it
+      _root.tf.text = "Hello worlds!";
+      
+      Supersonic.proxy.call("alert", "1");
+
       _root.sound.start(0,99);
     };
   }
@@ -76,7 +120,8 @@ class Supersonic {
     _root.fadeout_sound_volume = 100;
     _root.fadeout_sound = 1;
   }
-  function crossfadeSound(itemURL /*=R2*/ ) {
+
+  function crossfadeSound(itemURL) {
     if( !_root.sound ) {
       playSound(itemURL);
       return undefined;
@@ -87,18 +132,21 @@ class Supersonic {
     _root.fadesound = new Sound();
     _root.fadesound.loadSound(itemURL,true);
   }
-  function playEffect(itemURL /*=R2*/ ) {
+
+  function playEffect(itemURL) {
     _root.fadeout_effect_volume = 100;
     _root.fadeout_effect = 0;
     _root.effect = new Sound();
     _root.effect.loadSound(itemURL,true);
   }
+
   function stopEffect() {
     _root.effect.onSoundComplete = null;
     _root.fadeout_effect_volume = 100;
     _root.fadeout_effect = 1;
   }
-  function crossfadeEffect(itemURL /*=R2*/ ) {
+
+  function crossfadeEffect(itemURL) {
     if( !_root.effect ) {
       playEffect(itemURL);
       return undefined;
