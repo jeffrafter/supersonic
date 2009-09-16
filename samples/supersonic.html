@@ -6,16 +6,17 @@
 <body bgcolor="#ffffff">
     <script type="text/javascript" src="../supersonic.js"></script> 
     <script type="text/javascript">
-      var sample = new FlashTag("../supersonic.swf", 200, 200, "7,0,14,0");
-      sample.write(document);
+      var s = new Supersonic();
+      s.init({src: '../samples/song1.mp3'});        
+      s.play();
     </script>
+<!--
     <style type="text/css">
       body { font-family:helvetica,verdana,sans-serif; padding:10px; }
       p, li { width:600px }
       #footer { border-top:1px solid silver; padding:10px; }    
     </style>
     <form>
-
       <h1>Supersonic</h1>
       <p>Supersonic was written as part of the RailsRumble 2007 contest by the 
       folks at Giant Robot Torso Mode. The team specifically included Jeff Rafter,
@@ -54,6 +55,6 @@
     <div id="footer">
       Songs and effects &copy; 2007 Giant Robot Torso Mode.
     </div>
-
+-->
     </body>
 </html>

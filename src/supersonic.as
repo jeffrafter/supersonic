@@ -7,6 +7,11 @@ class Supersonic {
   function Supersonic() {
     proxy = new com.macromedia.javascript.JavaScriptProxy(_root.lcId,this);  
 
+		// creates a 'tf' TextField size 800x600 at pos 0,0
+		_root.createTextField("tf",100,100,0,800,600);
+		// write some text into it
+		_root.tf.text = "Supersonic";
+
     _root.onEnterFrame = function () {
       if( (_root.fadeout_sound==1) ) {
         _root.sound.setVolume(_root.fadeout_sound_volume);
@@ -52,6 +57,12 @@ class Supersonic {
   }
 
   function playSound(itemURL /*=R2*/ ) {
+		// creates a 'tf' TextField size 800x600 at pos 0,0
+		_root.createTextField("tf",0,0,0,800,600);
+		// write some text into it
+		_root.tf.text = "Hello world !";
+
+
     _root.fadeout_sound_volume = 100;
     _root.fadeout_sound = 0;
     _root.sound = new Sound();
