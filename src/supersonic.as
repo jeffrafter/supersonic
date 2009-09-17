@@ -6,12 +6,6 @@ class Supersonic {
 
   function Supersonic() {
     proxy = new JavaScriptProxy(_root.lcId,this);  
-
-    // creates a 'tf' TextField size 800x600 at pos 0,0
-    _root.createTextField("tf",0,0,0,800,600);
-    // write some text into it
-    _root.tf.text = "Hello";
-
     _root.onEnterFrame = function () {
       if( (_root.fadeout_sound==1) ) {
         _root.sound.setVolume(_root.fadeout_sound_volume);
@@ -104,15 +98,8 @@ class Supersonic {
     _root.sound = new Sound();
     _root.sound.loadSound(itemURL,true);
     _root.sound.onSoundComplete = function () {
-
-      // creates a 'tf' TextField size 800x600 at pos 0,0
-      _root.createTextField("tf",0,0,0,800,600);
-      // write some text into it
-      _root.tf.text = "Hello worlds!";
-      
-      Supersonic.proxy.call("alert", "1");
-
       _root.sound.start(0,99);
+      Supersonic.proxy.call("this.complete");
     };
   }
   function stopSound() {

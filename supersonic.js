@@ -1,4 +1,3 @@
-
 /*  Supersonic, version 0.0.1
  *  (c) 2009 Jeff Rafter
  *
@@ -6,10 +5,6 @@
  *    (http://www.macromedia.com) Please see licence for details.             
  *
  *--------------------------------------------------------------------------*/
-var Supersonic = {
-  version: '0.0.1'
-};
-
 Supersonic = function() {
     
   this.init = function(options) {
@@ -23,12 +18,13 @@ Supersonic = function() {
     this.lcId = new Date().getTime();
     this.proxy = new Supersonic(); // TODO constructor versus init! fight!
     this.proxy.init({lcId:this.lcId}); // TODO can't I just have one constructor?
-    document.write(this.build('lcId=' + escape(this.lcId))); // TODO (this sucks)
-
     this.src = options.src || null;
     this.autobuffer = options.autobuffer || true;
     this.autoplay = options.autoplay || false;
     this.loop = options.loop || false;
+    Supersonic.instances["lcId_"+this.lcId] = this;
+    document.write(this.build('lcId=' + escape(this.lcId))); // TODO (this sucks)
+
     if (this.autobuffer) this.load();
   }
   
@@ -129,22 +125,32 @@ Supersonic = function() {
       target.id = id;
       document.body.appendChild(target);
     }
-    target.innerHTML = this.build(query)    
-  }  
+    target.innerHTML = this.build(query);
+  }    
   
-  this.js = function() {
-    alert('js-in');
-    var args = new Array();
-    for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);
-    var functionToCall = eval(arguments.shift());
-    functionToCall.apply(functionToCall, arguments);
+  this.execute = function(name, args) {
+    var functionToCall = eval(name);    
+    functionToCall.apply(this, args);  
+  }
+  
+  this.complete = function() {
+    // fire completed event, for now just stop
+    alert('That was a nice sound');
+    this.stop();
   }
 }
 
-function js() {
-  alert('js-out');
+// Allow us to route events based on lcId
+
+Supersonic.instances = {};
+
+// Flash proxy callbacks are routed through here to the correct object
+
+Supersonic.js = function() {
   var args = new Array();
   for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);
-  var functionToCall = eval(args.shift());
-  functionToCall(args);
+  var lcId = args.shift();
+  var name = args.shift();  
+  var obj = Supersonic.instances["lcId_"+lcId];
+  obj.execute(name, args);
 }
